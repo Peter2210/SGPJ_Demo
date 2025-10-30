@@ -1,0 +1,23 @@
+server:
+  port: 8081
+  
+camunda:
+    client:
+        mode: self-managed
+        zeebe:
+            enabled: true
+            grpc-address: http://127.0.0.1:26500
+            rest-address: http://127.0.0.1:8080
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://RET-0109388206\SQLEXPRESS:1433;databaseName=BdProjetos;encrypt=false;
+    username: CamundaRun
+    password: 191195
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # ou validate, dependendo da sua necessidade
+    show-sql: true
+  

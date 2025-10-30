@@ -1,0 +1,14 @@
+<div class="editor-wrapper">
+  <quill-editor
+    [(ngModel)]="content"
+    [modules]="modules"
+    (onEditorCreated)="onEditorCreated($event)"
+    placeholder="Digite seu texto acadêmico aqui..."
+  ></quill-editor>
+  <p>{{ wordCount }} palavras</p>
+
+  <section class="preview">
+    <h2>Pré-visualização</h2>
+    <div class="ql-editor abnt" [innerHTML]="safeHtml"></div>
+  </section>
+</div>

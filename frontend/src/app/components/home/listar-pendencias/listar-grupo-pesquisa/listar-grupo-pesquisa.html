@@ -1,0 +1,33 @@
+<div *ngIf="loading">Carregando grupos pendentes...</div>
+
+<div *ngIf="!loading && gruposPendentes.length === 0">
+    <h2>{{ titulo }}</h2>
+    <p>Nenhum item pendente de análise.</p>
+</div>
+
+<div *ngIf="!loading && gruposPendentes.length > 0">
+    <h2>{{ titulo }}</h2>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nome do Grupo</th>
+                <th>Líder</th>
+                <th>Data de Criação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let grupo of gruposPendentes">
+                <td>{{ grupo.nomeGrupo }}</td>
+                <td>{{ grupo.nomeLider }}</td>
+                <td>{{ grupo.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>
+                    <button (click)="verDetalhes(grupo)">Detalhes</button>
+                    <button (click)="decidirGrupo(grupo, true)">Aprovar</button>
+                    <button (click)="decidirGrupo(grupo, false)">Reprovar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

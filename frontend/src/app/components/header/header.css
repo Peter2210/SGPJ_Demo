@@ -1,0 +1,56 @@
+header {
+  background-color: #002856; /* azul Unioeste */
+  color: #ffffff;
+  padding: 12px 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav > span {
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+nav > span:hover {
+  color: #ffd100; /* amarelo Unioeste */
+}
+
+nav ul {
+  display: flex;
+  gap: 24px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+}
+
+nav ul li:hover {
+  color: #ffd100;
+  transform: translateY(-2px);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+}

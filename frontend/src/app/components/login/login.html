@@ -1,0 +1,16 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form (ngSubmit)="login()">
+    <select [(ngModel)]="userType" name="userType" required>
+      <option value="" disabled selected>Selecione o tipo de usuário</option>
+      <option *ngFor="let tipo of userTypes" [value]="tipo.value">{{ tipo.label }}</option>
+    </select>
+
+    <input [(ngModel)]="username" name="username" placeholder="Usuário" required />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Senha" required />
+
+    <button type="submit">Entrar</button>
+
+    <p *ngIf="error" class="error-message">{{ error }}</p>
+  </form>
+</div>

@@ -1,0 +1,72 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h2>FORMULÁRIO II - PROJETO DE PESQUISA</h2>
+
+  <label for="tituloProjeto">1. TÍTULO DO PROJETO:</label><br />
+  <input id="tituloProjeto" type="text" formControlName="tituloProjeto" />
+
+  <label>
+    <input type="checkbox" formControlName="vinculadoGrupoPesquisa" value=true /> PROJETO VINCULADO A GRUPO DE PESQUISA
+  </label>
+
+  <div *ngIf="formGroup.value.vinculadoGrupoPesquisa === true">
+    <label>Qual(is) grupo(s)?</label><br />
+    <input type="text" formControlName="qualGrupoPesquisa" />
+  </div>
+
+  <label>3. VIGÊNCIA (início)</label><br />
+  <input type="date" formControlName="vigenciaInicio" />
+  <label>até</label>
+  <input type="date" formControlName="vigenciaFim" />
+
+  <label>5. RESUMO (até 20 linhas):</label><br />
+  <textarea formControlName="resumo" rows="5"></textarea>
+
+  <label>6. OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL:</label><br />
+  <textarea formControlName="odsSelecionados" rows="5" placeholder="Liste os ODS selecionados"></textarea>
+
+  <label>7. PALAVRAS-CHAVE:</label><br />
+  <input type="text" formControlName="palavrasChave" />
+
+  <label>8. CLASSIFICAÇÃO DA ÁREA:</label><br />
+  <div>
+    <label>Grande área:</label>
+    <input type="text" formControlName="grandeArea" />
+    <label>Código CNPq:</label>
+    <input type="text" formControlName="codigoGrandeArea" />
+  </div>
+  <div>
+    <label>Área:</label>
+    <input type="text" formControlName="area" />
+    <label>Código CNPq:</label>
+    <input type="text" formControlName="codigoArea" />
+  </div>
+  <div>
+    <label>Subárea:</label>
+    <input type="text" formControlName="subarea" />
+    <label>Código CNPq:</label>
+    <input type="text" formControlName="codigoSubarea" />
+  </div>
+
+  <label>9. DESCRIÇÃO DO PROJETO:</label><br />
+  <quill-editor
+    formControlName="descricaoProjeto"
+    [modules]="quillModules"
+    [styles]="{ height: '250px' }"
+    placeholder="Digite a descrição do projeto aqui..."
+  ></quill-editor>
+
+  <label>10. REFERÊNCIAS:</label><br />
+  <textarea formControlName="referencias" rows="3"></textarea>
+
+  <label> ESTE PROJETO DE PESQUISA: </label>
+  <label>
+    <input type="checkbox" formControlName="envolveEticaHumana" value=true /> Envolve seres humanos e obteve parecer favorável do comitê de ética
+    <br />
+    <input type="checkbox" formControlName="envolveEticaAnimal" value=true /> Envolve animais e obteve parecer favorável do comitê de ética
+    <br />
+    <input type="checkbox" formControlName="envolveSISGEN" value=true /> Envolve patrimônio genético ou conhecimento tradicional associado e foi cadastrado no SISGEN
+  </label>
+
+  <br /><br />
+  <button type="submit">Enviar</button>
+</form>

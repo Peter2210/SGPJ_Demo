@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1xrlalc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.39.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+  <bpmn:collaboration id="tramite-monitorias">
+    <bpmn:participant id="Participant_02voluv" processRef="Process_1u2yuc3" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1u2yuc3" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_14gku2r">
+      <bpmn:lane id="Lane_0y4f2x3" name="DISCENTE" />
+      <bpmn:lane id="Lane_0yy2qtl" name="DOCENTE">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_18tv662" name="PROGRAD" />
+      <bpmn:lane id="Lane_1u5g9c1" />
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Inicio das">
+      <bpmn:documentation>Irá automaticamente iniciar trâmite no dia configurado abaixo no Timer
+(ANO-MES-DIA).
+(DATATEMPO)
+Exemplo: 2019-10-01T12:00:00Z</bpmn:documentation>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1cub1wy">
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">2025-10-22T12:00:00Z</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="tramite-monitorias">
+      <bpmndi:BPMNShape id="Participant_02voluv_di" bpmnElement="Participant_02voluv" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="600" height="510" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1u5g9c1_di" bpmnElement="Lane_1u5g9c1" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="570" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_18tv662_di" bpmnElement="Lane_18tv662" isHorizontal="true">
+        <dc:Bounds x="190" y="200" width="570" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0yy2qtl_di" bpmnElement="Lane_0yy2qtl" isHorizontal="true">
+        <dc:Bounds x="190" y="320" width="570" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0y4f2x3_di" bpmnElement="Lane_0y4f2x3" isHorizontal="true">
+        <dc:Bounds x="190" y="440" width="570" height="150" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jlph45_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="282" y="362" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="277" y="405" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

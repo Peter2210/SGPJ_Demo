@@ -1,0 +1,12 @@
+<header>
+  <nav>
+    <span (click)="navigateHome()">{{ title }}</span>
+
+    <ul>
+      <li *ngFor="let item of menuItems" [routerLink]="item.link">
+        {{ item.label }}
+      </li>
+      <li class="logout" (click)="logout()">Sair</li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,100 @@
+<div class="form-container">
+  <h2>FORMULÁRIO I</h2>
+  <h3>FORMAÇÃO DE GRUPO DE PESQUISA</h3>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <!-- 1. NOME DO GRUPO -->
+    <div>
+      <label for="nomeGrupo">1. NOME DO GRUPO:</label><br />
+      <input id="nomeGrupo" type="text" formControlName="nomeGrupo" class="form-control" />
+    </div>
+
+    <!-- 2. PARTICIPANTES -->
+    <h4>2. PARTICIPANTES:</h4>
+
+    <div>
+      <label>Nome do Líder:</label>
+      <input type="text" formControlName="nomeLider" />
+      <label>Centro:</label>
+      <input type="text" formControlName="centroLider" />
+      <label>E-mail do Líder:</label>
+      <input type="email" formControlName="emailLider" />
+    </div>
+
+    <div>
+      <label>Nome do Vice-Líder:</label>
+      <input type="text" formControlName="nomeViceLider" />
+      <label>Centro:</label>
+      <input type="text" formControlName="centroViceLider" />
+      <label>E-mail do Vice-Líder:</label>
+      <input type="email" formControlName="emailViceLider" />
+    </div>
+
+    <!-- Lista de Pesquisadores -->
+    <div formArrayName="pesquisadores">
+      <div *ngFor="let pesquisador of pesquisadores.controls; let i = index" [formGroupName]="i" style="margin-bottom: 10px;">
+        <label>Pesquisador {{ i + 1 }}:</label><br />
+        <input type="text" formControlName="nome" placeholder="Nome" />
+        <input type="text" formControlName="centroInstituicao" placeholder="Centro/Instituição" />
+        <select formControlName="tipo">
+          <option value="Efetivo">Efetivo</option>
+          <option value="Colaborador">Colaborador</option>
+          <option value="Acadêmico">Acadêmico</option>
+        </select>
+        <button type="button" (click)="removerPesquisador(i)">Remover</button>
+      </div>
+      <button type="button" (click)="adicionarPesquisador()">Adicionar Pesquisador</button>
+    </div>
+
+    <!-- 3. CLASSIFICAÇÃO DA ÁREA -->
+    <h4>3. CLASSIFICAÇÃO DA ÁREA:</h4>
+    <div>
+      <label>a) Grande área:</label>
+      <input type="text" formControlName="grandeArea" />
+      <label>Código CNPq:</label>
+      <input type="text" formControlName="codigoGrandeArea" />
+    </div>
+
+    <div>
+      <label>b) Área:</label>
+      <input type="text" formControlName="area" />
+      <label>Código CNPq:</label>
+      <input type="text" formControlName="codigoArea" />
+    </div>
+
+    <div>
+      <label>c) Subárea:</label>
+      <input type="text" formControlName="subarea" />
+      <label>Código CNPq:</label>
+      <input type="text" formControlName="codigoSubarea" />
+    </div>
+
+    <p><strong>Atenção:</strong> Algumas áreas não apresentam na tabela o nome/código do 4º nível de conhecimento...</p>
+
+    <!-- 4. OBJETIVOS -->
+    <div>
+      <label>4. OBJETIVOS:</label><br />
+      <textarea formControlName="objetivos" rows="5" cols="80"></textarea>
+    </div>
+
+    <!-- 5. LINHA(S) DE PESQUISA -->
+    <div>
+      <label>5. LINHA(S) DE PESQUISA:</label><br />
+      <textarea formControlName="linhasPesquisa" rows="5" cols="80"></textarea>
+    </div>
+
+    <!-- 6. OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL -->
+    <h4>6. ASSINALAR ABAIXO OS OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL:</h4>
+    <div formGroupName="ods">
+      <div *ngFor="let item of odsList">
+        <label>
+          <input type="checkbox" [formControlName]="item.id" />
+          {{ item.label }}
+        </label>
+      </div>
+    </div>
+
+    <br />
+    <button type="submit">Enviar</button>
+  </form>
+</div>

@@ -1,0 +1,95 @@
+/* styles.css or formulario.component.css */
+
+/* Overall page / form container */
+.form-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Headers */
+.form-container h2, .form-container h3, .form-container h4 {
+  color: #003E7E; /* UNIOESTE Blue */
+  margin-bottom: 1rem;
+}
+
+/* Labels and inputs */
+.form-container label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #F2F2F2; /* light gray */
+  color: #333333;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="email"]:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  border-color: #003E7E;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 62, 126, 0.2);
+}
+
+/* Buttons */
+button {
+  background-color: #003E7E;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #00295C; /* darker blue for hover */
+}
+
+button:disabled {
+  background-color: #999999;
+  cursor: not-allowed;
+}
+
+/* Checkbox section (ODS) */
+.ods-list {
+  padding: 0;
+  margin: 0 0 1rem 0;
+  list-style: none;
+}
+
+.ods-list li {
+  margin-bottom: 0.5rem;
+}
+
+.ods-list input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Responsive layout tweaks */
+@media (min-width: 768px) {
+  .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+  .form-row > div {
+    flex: 1;
+  }
+}
