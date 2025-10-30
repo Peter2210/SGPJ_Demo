@@ -108,7 +108,7 @@ export const routes: Routes = [
           },
           {
             path: 'Projeto',
-            loadComponent: () => import('./components/home/listar-pendencias/projeto-pesquisa/projeto-pesquisa').then(m => m.ProjetoPesquisa)
+            loadComponent: () => import('./components/home/listar-pendencias/listar-projeto-pesquisa/listar-projeto-pesquisa').then(m => m.ListarProjetoPesquisa)
           },
           {
             path: '',

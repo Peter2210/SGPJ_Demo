@@ -1,0 +1,32 @@
+<div *ngIf="loading">Carregando projetos pendentes...</div>
+
+<div *ngIf="!loading && projetosPendentes.length === 0">
+    <h2>{{ titulo }}</h2>
+    <p>Nenhum item pendente de análise.</p>
+</div>
+
+<div *ngIf="!loading && projetosPendentes.length > 0">
+    <h2>{{ titulo }}</h2>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Titulo do Projeto</th>
+                <th>Grupo Relacionado</th>
+                <th>Descrição do Projeto</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let projeto of projetosPendentes">
+                <td>{{ projeto.tituloProjeto }}</td>
+                <td>{{ projeto.nomeGrupo }}</td>
+                <td>{{ projeto.descricaoProjeto }}</td>
+                <td>
+                    <button (click)="decidirProjeto(projeto, true)">Aprovar</button>
+                    <button (click)="decidirProjeto(projeto, false)">Reprovar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

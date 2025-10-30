@@ -11,8 +11,4 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 
 export class ListarPendencias {
-  menuItems = [
-    { label: 'Grupos de Pesquisa', link: 'grupo-pesquisa' },
-    { label: 'Projetos de Pesquisa', link: 'projeto-pesquisa' },
-  ];
 }

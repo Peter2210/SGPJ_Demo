@@ -1,46 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { PendenciasProjetoPesquisa, ProjetoPesquisa } from '../../../../services/PendeciasProjetoPesquisa/pendencias-projeto-pesquisa';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GrupoPesquisa, GrupoPesquisaService } from '../../../../services/PendenciasGrupoPesquisa/pendenciasGrupoService';
 import { API_ENDPOINT_MAP, EntidadePendencia } from '../../../../constantes/api-estados.constants';
 
 @Component({
-  selector: 'app-grupo-pesquisa',
+  selector: 'app-projeto-pesquisa',
   standalone: true,
-  imports: [CommonModule, DatePipe],
-  templateUrl: './listar-grupo-pesquisa.html',
-  styleUrl: './listar-grupo-pesquisa.css'
+  imports: [CommonModule],
+  templateUrl: './listar-projeto-pesquisa.html',
+  styleUrls: ['./listar-projeto-pesquisa.css']
 })
-export class ListarGrupoPesquisa implements OnInit {
-  gruposPendentes: GrupoPesquisa[] = [];
-  loading = true;
+export class ListarProjetoPesquisa implements OnInit{
+  projetosPendentes: ProjetoPesquisa[] = []
+  public loading = true
   private estado: string = '';
   public titulo: string = 'Pendências de Aprovação'; 
   
-  private readonly tipoPendenciaKey = 'cadastro-grupo-pesquisa'; 
+  private readonly tipoPendenciaKey = 'cadastro-projeto-pesquisa'; 
 
   constructor(
-    private GrupoPesquisaService: GrupoPesquisaService, 
+    private ProjetoPesquisaService: PendenciasProjetoPesquisa, 
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
-
+    private router: Router){}
+  
   ngOnInit(): void {
     const entidadeKey = this.route.parent?.snapshot.paramMap.get('entidade') as EntidadePendencia;
-
-    if (!entidadeKey || !API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]) {
+    
+    if ( !entidadeKey ||  !API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey] ){
       console.error('Entidade de pendência inválida na URL:', entidadeKey);
       this.router.navigate(['/']); 
       return;
     }
-
     const config = API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]!;
     this.estado = config.estado;
     this.titulo = config.titulo;
 
-    this.GrupoPesquisaService.getGruposPendentes(this.estado).subscribe({
-      next: (data: GrupoPesquisa[]) => {
-        this.gruposPendentes = data;
+    this.ProjetoPesquisaService.getProjetosPendentes(this.estado).subscribe({
+      next: (data: ProjetoPesquisa[]) => {
+        this.projetosPendentes = data;
         this.loading = false;
       },
       error: err => {
@@ -50,19 +48,14 @@ export class ListarGrupoPesquisa implements OnInit {
     })
   }
 
-  
-  verDetalhes(grupo: GrupoPesquisa): void {
-    console.log('Detalhes do grupo:', grupo);
-  }
-
-  decidirGrupo(grupo: GrupoPesquisa, decisao: boolean): void {
+  decidirProjeto(projeto: ProjetoPesquisa, decisao: boolean): void {
     if (!this.estado) return;
-
-    if (confirm(`Deseja aprovar o grupo "${grupo.nomeGrupo}"?`)) {
-      this.GrupoPesquisaService.decidirGrupo(grupo.id, decisao).subscribe({
+  
+    if (confirm(`Deseja aprovar o grupo "${projeto.tituloProjeto}"?`)) {
+      this.ProjetoPesquisaService.decidirProjeto(projeto.id, decisao).subscribe({
         next: () => {
           alert('Grupo aprovado com sucesso!');
-          this.gruposPendentes = this.gruposPendentes.filter(g => g.id !== grupo.id);
+          this.projetosPendentes = this.projetosPendentes.filter(g => g.id !== projeto.id);
         },
         error: (err: unknown) => {
           console.error('Erro ao aprovar grupo', err);
@@ -72,4 +65,3 @@ export class ListarGrupoPesquisa implements OnInit {
     }
   }
 }
-
