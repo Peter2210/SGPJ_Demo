@@ -28,40 +28,30 @@ export class ListarGrupoPesquisa implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Ler o parâmetro da rota de forma dinâmica
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        // Pega o valor do parâmetro ':entidade'
-        const entidadeKey = params.get('entidade') as EntidadePendencia; 
+    const entidadeKey = this.route.parent?.snapshot.paramMap.get('entidade') as EntidadePendencia;
 
-        if (!entidadeKey || !API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]) {
-          console.error('Entidade de pendência inválida na URL:', entidadeKey);
-          // Redirecionar para uma página de erro ou home
-          this.router.navigate(['/']); 
-          return of(null);
-        }
+    if (!entidadeKey || !API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]) {
+      console.error('Entidade de pendência inválida na URL:', entidadeKey);
+      this.router.navigate(['/']); 
+      return;
+    }
 
-        // Mapeamento: Obtém as informações de estado e título
-        const config = API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]!;
-        this.estado = config.estado;
-        this.titulo = config.titulo;
-        
-        // Carrega as pendências
-        return this.GrupoPesquisaService.getGruposPendentes(this.estado);
-      })
-    ).subscribe({
-      next: (data: GrupoPesquisa[] | null) => {
-        if (data) {
-          this.gruposPendentes = data;
-        }
+    const config = API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]!;
+    this.estado = config.estado;
+    this.titulo = config.titulo;
+
+    this.GrupoPesquisaService.getGruposPendentes(this.estado).subscribe({
+      next: (data: GrupoPesquisa[]) => {
+        this.gruposPendentes = data;
         this.loading = false;
       },
-      error: (err: unknown) => {
+      error: err => {
         console.error('Erro ao buscar pendências em', this.estado, err);
         this.loading = false;
       }
     });
   }
+
   
   verDetalhes(grupo: GrupoPesquisa): void {
     console.log('Detalhes do grupo:', grupo);
