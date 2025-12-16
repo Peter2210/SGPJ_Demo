@@ -1,0 +1,263 @@
+/////////////////////////////////////////////////////////
+// SISTEMA GERAL DE PROJETOS ACADÊMICOS — MULTI-INSTITUIÇÃO
+/////////////////////////////////////////////////////////
+// Objetivo:
+// - Atender múltiplas instituições com isolamento de dados
+// - Manter núcleo de projeto estruturado
+// - Permitir extensões por tipo e dados dinâmicos via formulários
+/////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////
+// INSTITUIÇÃO (RAIZ DO SISTEMA)
+
+// Representa a entidade administrativa dona dos projetos.
+// Ex: Universidade, Instituto Federal, Fundação
+/////////////////////////////////////////////////////////
+
+Table Instituicao {
+  id            uuid        [pk]             // Identificador único da instituição
+  nome          varchar     [not null]       // Nome oficial completo
+  sigla         varchar                      // Sigla (UFXX, IFYY, etc.)
+  ativo         boolean     [default: true]  // Desativação lógica (não apaga dados)
+  data_criacao  timestamp                    // Data de criação no sistema
+}
+
+/////////////////////////////////////////////////////////
+// PROJETO — ENTIDADE CENTRAL DO DOMÍNIO
+
+// Todo o sistema gira em torno desta tabela.
+// Define identidade, estado, fluxo e pertencimento institucional.
+/////////////////////////////////////////////////////////
+
+Table Projeto {
+  id                uuid        [pk]             // Identificador único do projeto
+  instituicao_id    uuid        [not null]       // Instituição proprietária do projeto
+
+  tipo_projeto      varchar     [not null]       // PESQUISA, ENSINO, LIGA, EXTENSAO, OUTRO
+  titulo            varchar     [not null]       // Título oficial do projeto
+  resumo            text        [not null]       // Descrição geral
+  coordenador       varchar     [not null]       // Responsável principal
+  centro            varchar                      // Centro / Unidade acadêmica
+  campus            varchar                      // Campus da instituição
+  periodo_inicio    date        [not null]       // Data inicial de vigência
+  periodo_fim       date                         // Data final (opcional)
+  status            varchar     [not null]       // RASCUNHO, EM_TRAMITACAO, APROVADO, ENCERRADO
+  ativo             boolean     [default: true]  // Soft delete
+  data_criacao      timestamp                    // Data de criação
+  data_atualizacao  timestamp                    // Última modificação
+}
+
+/////////////////////////////////////////////////////////
+// EXTENSÕES POR TIPO DE PROJETO (1:1)
+
+// Armazenam campos importantes e estruturais
+// que só existem para determinados tipos de projeto.
+/////////////////////////////////////////////////////////
+
+Table ProjetoPesquisa {
+  projeto_id           uuid        [pk]          // FK → Projeto (1:1)
+  grande_area          varchar                    // Grande área do conhecimento (CNPq)
+  area                 varchar                    // Área
+  sub_area             varchar                    // Subárea
+  envolve_etica_humana boolean                    // Necessita CEP?
+  envolve_etica_animal boolean                    // Necessita CEUA?
+  envolve_sisgen       boolean                    // Necessita SISGEN?
+  financiamento        boolean                    // Possui financiamento?
+}
+
+Table ProjetoEnsino {
+  projeto_id      uuid        [pk]                // FK → Projeto (1:1)
+  colegiado       varchar                        // Colegiado responsável
+  justificativa   text                           // Justificativa pedagógica
+  fundamentacao   text                           // Base teórica
+  metodologia     text                           // Metodologia de execução
+  contribuicoes   text                           // Contribuições esperadas
+}
+
+Table ProjetoLiga {
+  projeto_id           uuid        [pk]           // FK → Projeto (1:1)
+  criterios_avaliacao  text                      // Critérios de avaliação
+  divulgacao           text                      // Estratégias de divulgação
+}
+
+/////////////////////////////////////////////////////////
+// FORMULÁRIOS DINÂMICOS (CONFIGURAÇÃO E USO)
+
+// Representam documentos institucionais configuráveis.
+// Podem ser globais (instituicao_id = NULL) ou específicos de uma instituição.
+/////////////////////////////////////////////////////////
+
+Table Formulario {
+  id              uuid        [pk]                // Identificador do formulário
+  instituicao_id  uuid                             // NULL = global | preenchido = institucional
+  nome            varchar     [not null]          // Nome do formulário (ex: Relatório Final)
+  tipo_projeto    varchar                          // Restrição opcional por tipo de projeto
+  descricao       text                             // Descrição funcional
+  ativo           boolean                          // Controle de uso
+}
+
+/////////////////////////////////////////////////////////
+// CAMPOS DO FORMULÁRIO
+
+// Define a estrutura do formulário.
+// Não armazena dados do projeto, apenas o "modelo".
+/////////////////////////////////////////////////////////
+
+Table FormularioCampo {
+  id            uuid        [pk]                  // Identificador do campo
+  formulario_id uuid        [not null]            // FK → Formulario
+  nome_campo    varchar     [not null]            // Nome lógico do campo
+  tipo_dado     varchar     [not null]            // TEXTO, NUMERO, DATA, BOOLEAN, LISTA
+  obrigatorio   boolean                          // Campo obrigatório?
+  ordem         int                               // Ordem de exibição
+}
+
+/////////////////////////////////////////////////////////
+// ASSOCIAÇÃO ENTRE PROJETO E FORMULÁRIO
+
+// Representa um formulário específico preenchido
+// por um projeto em determinado momento.
+/////////////////////////////////////////////////////////
+
+Table ProjetoFormulario {
+  id            uuid        [pk]                  // Identificador da instância
+  projeto_id    uuid        [not null]            // FK → Projeto
+  formulario_id uuid        [not null]            // FK → Formulario
+  data_envio    timestamp                        // Data de submissão
+}
+
+/////////////////////////////////////////////////////////
+// RESPOSTAS DOS CAMPOS DO FORMULÁRIO
+
+// Armazena os valores preenchidos para cada campo.
+/////////////////////////////////////////////////////////
+
+Table ProjetoFormularioResposta {
+  id                    uuid        [pk]          // Identificador da resposta
+  projeto_formulario_id uuid        [not null]    // FK → ProjetoFormulario
+  campo_id              uuid        [not null]    // FK → FormularioCampo
+  valor                 text                     // Valor preenchido (string genérica)
+}
+
+/////////////////////////////////////////////////////////
+// PARTICIPANTES DO PROJETO
+
+// Representa todas as pessoas vinculadas ao projeto.
+/////////////////////////////////////////////////////////
+
+Table Participante {
+  id              uuid        [pk]                // Identificador do participante
+  projeto_id      uuid        [not null]          // FK → Projeto
+  instituicao_id  uuid                            // Instituição de vínculo (se interno)
+
+  tipo            varchar     [not null]          // DOCENTE, DISCENTE, EXTERNO
+  nome            varchar     [not null]          // Nome completo
+  vinculacao      varchar                          // Curso, setor, instituição externa
+  carga_horaria   int                              // Carga horária no projeto
+}
+
+/////////////////////////////////////////////////////////
+// DETALHES FLEXÍVEIS DO PARTICIPANTE
+
+// Usado para informações variáveis sem alterar a tabela principal.
+/////////////////////////////////////////////////////////
+
+Table ParticipanteDetalhe {
+  id              uuid        [pk]
+  participante_id uuid        [not null]          // FK → Participante
+  campo           varchar     [not null]          // Nome do atributo
+  valor           text                             // Valor do atributo
+}
+
+/////////////////////////////////////////////////////////
+// TRAMITAÇÃO DO PROJETO
+
+// Representa o fluxo de análise institucional do projeto.
+/////////////////////////////////////////////////////////
+
+Table Tramitacao {
+  id             uuid        [pk]
+  projeto_id     uuid        [not null]           // FK → Projeto
+  instituicao_id uuid        [not null]           // Instituição responsável pela etapa
+
+  entidade       varchar     [not null]           // Colegiado, Conselho, Pró-Reitoria
+  ordem          int         [not null]            // Ordem no fluxo
+  status         varchar     [not null]            // PENDENTE, APROVADO, REJEITADO
+  observacao     text                             // Observações do avaliador
+  data_decisao   timestamp                        // Data da decisão
+}
+
+/////////////////////////////////////////////////////////
+// PARECER INSTITUCIONAL
+
+// Documento formal emitido durante a tramitação.
+/////////////////////////////////////////////////////////
+
+Table Parecer {
+  id              uuid        [pk]
+  projeto_id      uuid        [not null]          // FK → Projeto
+  instituicao_id  uuid        [not null]          // Instituição emitente
+  tipo_parecer    varchar     [not null]          // PROPOSTA, RELATORIO, ALTERACAO
+  data_emissao    timestamp                        // Data de emissão
+}
+
+/////////////////////////////////////////////////////////
+// ITENS DO PARECER
+
+// Permite pareceres compostos por várias análises.
+/////////////////////////////////////////////////////////
+
+Table ParecerItem {
+  id          uuid        [pk]
+  parecer_id  uuid        [not null]              // FK → Parecer
+  entidade    varchar     [not null]              // Unidade avaliadora
+  ordem       int         [not null]               // Ordem do item
+  status      varchar     [not null]               // APROVADO, REPROVADO, AJUSTE
+  comentario  text                              // Comentário detalhado
+}
+
+/////////////////////////////////////////////////////////
+// HISTÓRICO DO PROJETO
+
+// Registro auditável de todas as alterações relevantes.
+/////////////////////////////////////////////////////////
+
+Table ProjetoHistorico {
+  id              uuid        [pk]
+  projeto_id      uuid        [not null]          // FK → Projeto
+  instituicao_id  uuid        [not null]          // Instituição do projeto
+  alterado_por    varchar     [not null]          // Usuário responsável
+  data_alteracao  timestamp     [not null]        // Data da alteração
+  alteracoes      json                             // Diferenças registradas
+  motivo          text                             // Justificativa
+}
+
+/////////////////////////////////////////////////////////
+// RELACIONAMENTOS (REFERÊNCIAS)
+/////////////////////////////////////////////////////////
+
+Ref: Projeto.instituicao_id                  > Instituicao.id
+
+Ref: ProjetoPesquisa.projeto_id              - Projeto.id
+Ref: ProjetoEnsino.projeto_id                - Projeto.id
+Ref: ProjetoLiga.projeto_id                  - Projeto.id
+
+Ref: FormularioCampo.formulario_id           > Formulario.id
+Ref: ProjetoFormulario.projeto_id            > Projeto.id
+Ref: ProjetoFormulario.formulario_id         > Formulario.id
+Ref: ProjetoFormularioResposta.projeto_formulario_id > ProjetoFormulario.id
+Ref: ProjetoFormularioResposta.campo_id      > FormularioCampo.id
+
+Ref: Participante.projeto_id                 > Projeto.id
+Ref: Participante.instituicao_id             > Instituicao.id
+Ref: ParticipanteDetalhe.participante_id     > Participante.id
+
+Ref: Tramitacao.projeto_id                   > Projeto.id
+Ref: Tramitacao.instituicao_id               > Instituicao.id
+
+Ref: Parecer.projeto_id                      > Projeto.id
+Ref: ParecerItem.parecer_id                  > Parecer.id
+
+Ref: ProjetoHistorico.projeto_id             > Projeto.id
+Ref: ProjetoHistorico.instituicao_id         > Instituicao.id
