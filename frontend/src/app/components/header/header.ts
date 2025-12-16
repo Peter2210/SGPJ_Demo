@@ -97,10 +97,17 @@ export class Header {
         ];
         break;
             
-      case 'COMITE_ETICA':
-        this.title = "COMITE ÉTICA"
+      case 'COMITE_ETICA_HUMANA':
+        this.title = "COMITE ÉTICA HUMANA"
         this.menuItems = [
-          { label: 'Pendências Comite Ética', link: '/ComiteEtica/Pendencias' }
+          { label: 'Pendências Comite Ética', link: '/ComiteEticaHumana/Pendencias' }
+        ];
+        break;
+      
+      case 'COMITE_ETICA_ANIMAL':
+        this.title = "COMITE ÉTICA ANIMAL"
+        this.menuItems = [
+          { label: 'Pendências Comite Ética', link: '/ComiteEticaAnimal/Pendencias' }
         ];
         break;
       

@@ -17,7 +17,7 @@ export class ListarGrupoPesquisa implements OnInit {
   private estado: string = '';
   public titulo: string = 'Pendências de Aprovação'; 
   
-  private readonly tipoPendenciaKey = 'cadastro-grupo-pesquisa'; 
+  tipoPendenciaKey : string = ''; 
 
   constructor(
     private GrupoPesquisaService: GrupoPesquisaService, 
@@ -25,7 +25,9 @@ export class ListarGrupoPesquisa implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  
+  carregarGrupos(): void {
     const entidadeKey = this.route.parent?.snapshot.paramMap.get('entidade') as EntidadePendencia;
 
     if (!entidadeKey || !API_ENDPOINT_MAP[this.tipoPendenciaKey][entidadeKey]) {
@@ -38,18 +40,18 @@ export class ListarGrupoPesquisa implements OnInit {
     this.estado = config.estado;
     this.titulo = config.titulo;
 
+    this.loading = true;
     this.GrupoPesquisaService.getGruposPendentes(this.estado).subscribe({
-      next: (data: GrupoPesquisa[]) => {
+      next: data => {
         this.gruposPendentes = data;
         this.loading = false;
       },
       error: err => {
-        console.error('Erro ao buscar pendências em', this.estado, err);
+        console.error('Erro ao buscar pendências', err);
         this.loading = false;
       }
-    })
+    });
   }
-
   
   verDetalhes(grupo: GrupoPesquisa): void {
     console.log('Detalhes do grupo:', grupo);
@@ -71,5 +73,19 @@ export class ListarGrupoPesquisa implements OnInit {
       });
     }
   }
+
+  viewChange(modo : String){
+    switch(modo){
+      case "Cadastrar":
+        this.tipoPendenciaKey = 'cadastro-grupo-pesquisa';
+      break;
+      case "Alterar":
+        this.tipoPendenciaKey = 'alterar-grupos-pesquisa';
+      break;
+    }
+    //Recarrega lista
+    this.carregarGrupos()
+  }
+  
 }
 

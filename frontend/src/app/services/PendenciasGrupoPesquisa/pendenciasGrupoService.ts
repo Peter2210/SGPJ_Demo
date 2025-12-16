@@ -27,4 +27,9 @@ export class GrupoPesquisaService {
     const url = `${this.apiUrl}/gruposPesq/decisoes`;
     return this.http.post(url, { id, aprovado });
   }
+
+  getGruposAtivos(estado: string): Observable<GrupoPesquisa[]> {
+    const url = `${this.apiUrl}/gruposPesq/aprovacoes?estado=${estado}`;
+    return this.http.get<GrupoPesquisa[]>(url);
+  }
 }

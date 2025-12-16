@@ -19,7 +19,8 @@ export class Login {
   userTypes = [
     { label: 'Discente', value: 'DISCENTE' },
     { label: 'Docente', value: 'DOCENTE' },
-    { label: 'Comitê de Ética', value: 'COMITE_ETICA' },
+    { label: 'Comitê de Ética Humana', value: 'COMITE_ETICA_HUMANA' },
+    { label: 'Comitê de Ética Animal', value: 'COMITE_ETICA_ANIMAL' },
     { label: 'Comissão de Extensão', value: 'COMISSAO_EXTENSAO' },
     { label: 'Comissão de Pesquisa', value: 'COMISSAO_PESQUISA' },
     { label: 'Conselho de Centro', value: 'CONSELHO_CENTRO' },

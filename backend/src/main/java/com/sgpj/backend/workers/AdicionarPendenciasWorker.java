@@ -1,9 +1,9 @@
 package com.sgpj.backend.workers;
 import com.sgpj.backend.constants.SgpjEstados.Estados;
-import com.sgpj.backend.mssql.model.GruposPesquisa;
-import com.sgpj.backend.mssql.model.ProjetosPesquisa;
-import com.sgpj.backend.mssql.repository.RepositorioGrupoPesquisa;
-import com.sgpj.backend.mssql.repository.RepositorioProjetoPesquisa;
+import com.sgpj.backend.model.GrupoPesquisa;
+import com.sgpj.backend.model.ProjetoPesquisa;
+import com.sgpj.backend.repository.RepositorioGrupoPesquisa;
+import com.sgpj.backend.repository.RepositorioProjetoPesquisa;
 
 import java.util.*;
 
@@ -42,15 +42,15 @@ public class AdicionarPendenciasWorker {
     }
 
     public void dependenciaCadastroGrupoPesquisa(UUID Id, String Estado){
-        Optional<GruposPesquisa> optionalGrupo = gruposPesquisaRepository.findById(Id);
-        GruposPesquisa grupo = optionalGrupo.get();
+        Optional<GrupoPesquisa> optionalGrupo = gruposPesquisaRepository.findById(Id);
+        GrupoPesquisa grupo = optionalGrupo.get();
         grupo.setEstadoAtual(Estados.valueOf(Estado));
         gruposPesquisaRepository.save(grupo);
     }
 
     public void dependenciaCadastroProjetoPesquisa(UUID Id, String Estado){
-        Optional<ProjetosPesquisa> optionalProjeto = projetosPesquisaRepository.findById(Id);
-        ProjetosPesquisa projeto = optionalProjeto.get();
+        Optional<ProjetoPesquisa> optionalProjeto = projetosPesquisaRepository.findById(Id);
+        ProjetoPesquisa projeto = optionalProjeto.get();
         projeto.setEstadoAtual(Estados.valueOf(Estado));
         projetosPesquisaRepository.save(projeto);
     }

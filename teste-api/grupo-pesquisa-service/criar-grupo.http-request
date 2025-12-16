@@ -1,0 +1,13 @@
+{
+  "body": {
+    "content": "ewogICJub21lR3J1cG8iOiAiR3J1cG8gZGUgSW50ZWxpZ2VuY2lhIiwKICAibm9tZUxpZGVyIjogIkRyLiBKb2FvIEFsbWVpZGEiLAogICJjZW50cm9MaWRlciI6ICJDZW50cm8gZGUgQ2llbmNpYXMgRXhhdGFzIiwKICAiZW1haWxMaWRlciI6ICJqb2FvLmFsbWVpZGFAdW5pdmVyc2lkYWRlLmVkdSIsCgogICJub21lVmljZUxpZGVyIjogIkRyYS4gTWFyaWEgU291emEiLAogICJjZW50cm9WaWNlTGlkZXIiOiAiQ2VudHJvIGRlIFRlY25vbG9naWEiLAogICJlbWFpbFZpY2VMaWRlciI6ICJtYXJpYS5zb3V6YUB1bml2ZXJzaWRhZGUuZWR1IiwKCiAgImdyYW5kZUFyZWEiOiAiQ2llbmNpYXMgRXhhdGFzIGUgZGEgVGVycmEiLAogICJjb2RpZ29HcmFuZGVBcmVhIjogIjEuMDAuMDAuMDAtMCIsCiAgImFyZWEiOiAiQ2llbmNpYSBkYSBDb21wdXRhY2FvIiwKICAiY29kaWdvQXJlYSI6ICIxLjA1LjAwLjAwLTkiLAogICJzdWJBcmVhIjogIkludGVsaWdlbmNpYSBBcnRpZmljaWFsIiwKICAiY29kaWdvU3ViQXJlYSI6ICIxLjA1LjAzLjAwLTAiLAoKICAibGluaGFzUGVzcXVpc2EiOiAiQXByZW5kaXphZG8gZGUgbWFxdWluYSwgcmVkZXMgbmV1cmFpcyBwcm9mdW5kYXMsIHZpc2FvIGNvbXB1dGFjaW9uYWwiLAogICJvYmpldGl2b3MiOiAiRGVzZW52b2x2ZXIgc29sdWNvZXMgaW5vdmFkb3JhcyBiYXNlYWRhcyBlbSBJQSBwYXJhIHByb2JsZW1hcyByZWFpcy4iLAoKICAiZGF0YUluaWNpbyI6ICIyMDI0LTAzLTAxIiwKICAiZGF0YVRlcm1pbm8iOiAiMjAyNi0wMy0wMSIKfQo=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "method": "POST",
+  "title": "criar-grupo-pesquisa",
+  "url": "http://localhost:8081/gruposPesquisa"
+}

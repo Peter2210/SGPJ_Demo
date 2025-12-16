@@ -3,8 +3,8 @@ package com.sgpj.backend.starters;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgpj.backend.mssql.model.ProjetosPesquisa;
-import com.sgpj.backend.services.ProjetoPesquisaService;
+import com.sgpj.backend.model.ProjetoPesquisa;
+import com.sgpj.backend.service.ProjetoPesquisaService;
 
 import io.camunda.zeebe.client.ZeebeClient;
 
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("api/process")
 public class CadastrarProjetoPesquisaStarter {
+    /* 
     private final ZeebeClient zeebeClient;
     private final ProjetoPesquisaService projetoPesquisaService;
 
@@ -51,7 +52,7 @@ public class CadastrarProjetoPesquisaStarter {
             @SuppressWarnings("unchecked")
             Map<String, Object> formData = (Map<String, Object>) rawFormData;
 
-            ProjetosPesquisa projeto = projetoPesquisaService.salvarProjetoPesquisa(formData);
+            ProjetoPesquisa projeto = projetoPesquisaService.salvarProjetoPesquisa(formData);
 
             var result = zeebeClient.newCreateInstanceCommand()
                 .bpmnProcessId(processKey) 
@@ -59,7 +60,7 @@ public class CadastrarProjetoPesquisaStarter {
                 .variables(
                     Map.of(
                         "Id",projeto.getId().toString(),
-                        "Tipo",0, 
+                        "Tipo","Interno", 
                         "ComiteEticaHumana",projeto.getEnvolveEticaHumana(), 
                         "ComiteEticaAnimal", projeto.getEnvolveEticaAnimal(), 
                         "Financiamento", projeto.getFinanciamento()))
@@ -78,4 +79,5 @@ public class CadastrarProjetoPesquisaStarter {
             return ResponseEntity.status(500).body("Erro ao iniciar processo: " + e.getMessage());
         }
     }
+        */
 }

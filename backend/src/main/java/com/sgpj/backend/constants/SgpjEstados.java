@@ -3,7 +3,7 @@ package com.sgpj.backend.constants;
 public class SgpjEstados {
     public enum Estados {
         Parado,
-        Aprovacao_ComiteEticaHumana,
+        Aprovacao_ComiteEticaHumano,
         Aprovacao_ComiteEticaAnimal,
         Aprovacao_ComissaoPesquisa,
         Aprovacao_ConselhoCentro,

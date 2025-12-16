@@ -48,28 +48,28 @@ export const API_ENDPOINT_MAP : ApiEndpointMap = {
     }
   },
 
-  'alteracao-grupo-pesquisa': {
+  'alterar-grupos-pesquisa': {
       [EntidadePendencia.COMISSAO_PESQUISA]: {
-        estado: 'Aprovacao_ComissaoPesquisa',
-        titulo: 'Comissão de Pesquisa - Cadastro de Grupos de Pesquisa',
+        estado: 'Alteracao_ComissaoPesquisa',
+        titulo: 'Comissão de Pesquisa - Alteração de Grupos de Pesquisa',
       },
       [EntidadePendencia.CONSELHO_CENTRO]: {
-        estado: 'Aprovacao_ConselhoCentro',
-        titulo: 'Conselho de Centro - Cadastro de Grupos de Pesquisa',
+        estado: 'Alteracao_ConselhoCentro',
+        titulo: 'Conselho de Centro - Alteração de Grupos de Pesquisa',
       },
       [EntidadePendencia.CONSELHO_CAMPUS]: {
-        estado: 'Aprovacao_ConselhoCampus',
-        titulo: 'Conselho de Campus - Cadastro de Grupos de Pesquisa',
+        estado: 'Alteracao_ConselhoCampus',
+        titulo: 'Conselho de Campus - Alteração de Grupos de Pesquisa',
       },
       [EntidadePendencia.PRPPG]: {
-        estado: 'Aprovacao_PRPPG',
-        titulo: 'Pró-Reitoria de Pós-Graduação - Cadastro de Grupos de Pesquisa',
+        estado: 'Alteracao_PRPPG',
+        titulo: 'Pró-Reitoria de Pós-Graduação - Alteração de Grupos de Pesquisa',
       }
     },
     
   'cadastro-projeto-pesquisa': {
-    [EntidadePendencia.COMITE_ETICA]: {
-      estado: 'Aprovacao_ComiteEticaHumana',
+    [EntidadePendencia.COMITE_ETICA_HUMANA]: {
+      estado: 'Aprovacao_ComiteEticaHumano',
       titulo: 'Comite Ética Humana - Cadastro de Projetos de Pesquisa',
     },
     [EntidadePendencia.COMITE_ETICA_ANIMAL]: {

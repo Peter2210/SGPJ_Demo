@@ -1,9 +1,9 @@
 package com.sgpj.backend.controllers;
 import com.sgpj.backend.constants.SgpjEstados.Estados;
-import com.sgpj.backend.mssql.model.GruposPesquisa;
-import com.sgpj.backend.mssql.model.ProjetosPesquisa;
-import com.sgpj.backend.mssql.repository.RepositorioGrupoPesquisa;
-import com.sgpj.backend.mssql.repository.RepositorioProjetoPesquisa;
+import com.sgpj.backend.model.GrupoPesquisa;
+import com.sgpj.backend.model.ProjetoPesquisa;
+import com.sgpj.backend.repository.RepositorioGrupoPesquisa;
+import com.sgpj.backend.repository.RepositorioProjetoPesquisa;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,13 +30,13 @@ public class DecisaoPRPPGController {
     @PostMapping("/gruposPesq/decisoes")
     public ResponseEntity<?> decisaoGrupo(HttpServletRequest request, @RequestBody Map<String, Object> body) {
         UUID id = UUID.fromString(body.get("id").toString());
-        Optional<GruposPesquisa> optionalGrupo = gruposPesquisaRepository.findById(id);
+        Optional<GrupoPesquisa> optionalGrupo = gruposPesquisaRepository.findById(id);
         if (optionalGrupo.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         boolean aprovado = Boolean.TRUE.equals(body.get("aprovado"));
-        GruposPesquisa grupo = optionalGrupo.get();
+        GrupoPesquisa grupo = optionalGrupo.get();
 
         grupo.setEstadoAtual(Estados.Parado);
         gruposPesquisaRepository.save(grupo);
@@ -54,13 +54,13 @@ public class DecisaoPRPPGController {
      @PostMapping("/projetosPesq/decisoes")
     public ResponseEntity<?> decisaoProjeto(HttpServletRequest request, @RequestBody Map<String, Object> body) {
         UUID id = UUID.fromString(body.get("id").toString());
-        Optional<ProjetosPesquisa> optionalProjeto = projetosPesquisarRepository.findById(id);
+        Optional<ProjetoPesquisa> optionalProjeto = projetosPesquisarRepository.findById(id);
         if (optionalProjeto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         boolean aprovado = Boolean.TRUE.equals(body.get("aprovado"));
-        ProjetosPesquisa projeto = optionalProjeto.get();
+        ProjetoPesquisa projeto = optionalProjeto.get();
 
         projeto.setEstadoAtual(Estados.Parado);
         projetosPesquisarRepository.save(projeto);

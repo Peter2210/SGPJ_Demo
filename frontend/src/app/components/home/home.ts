@@ -27,8 +27,11 @@ export class Home {
     'DOCENTE': [
       { label: 'Área Docente', path: 'Docente'}
     ],
-    'COMITE_ETICA': [
-      { label: 'Área Ética', path: 'ComiteEtica' }
+    'COMITE_ETICA_HUMANA': [
+      { label: 'Área Ética', path: 'ComiteEticaHumana' }
+    ],
+    'COMITE_ETICA_ANIMAL': [
+      { label: 'Área Ética', path: 'ComiteEticaAnimal' }
     ],
     'COMISSAO_EXTENSAO': [
       { label: 'Área Extensão', path: 'ComissaoExtensao' }

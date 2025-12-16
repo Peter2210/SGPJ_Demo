@@ -13,7 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 
 export class GrupoPesquisaForm {
-  formGroup: FormGroup;
+  formGroup: FormGroup
+  view : String = ""
+  opcao : String = ""
 
   odsList = [
     { id: 'ods1', label: '1. ERRADICAÇÃO DA POBREZA' },
@@ -68,11 +70,11 @@ export class GrupoPesquisaForm {
     });
 
     // Add one empty pesquisador by default
-    this.adicionarPesquisador();
+    this.adicionarPesquisador()
   }
 
   get pesquisadores() {
-    return this.formGroup.get('pesquisadores') as FormArray;
+    return this.formGroup.get('pesquisadores') as FormArray
   }
 
   adicionarPesquisador() {
@@ -81,16 +83,16 @@ export class GrupoPesquisaForm {
       centroInstituicao: [''],
       tipo: ['Efetivo']
     });
-    this.pesquisadores.push(pesquisadorGroup);
+    this.pesquisadores.push(pesquisadorGroup)
   }
 
   removerPesquisador(index: number) {
-    this.pesquisadores.removeAt(index);
+    this.pesquisadores.removeAt(index)
   }
 
   onSubmit() {
     if (this.formGroup.invalid) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+      alert("Por favor, preencha todos os campos obrigatórios.")
       return;
     }
 
@@ -110,5 +112,13 @@ export class GrupoPesquisaForm {
       next: res => console.log('Process started:', res),
       error: err => console.error('Error:', err)
     });
+  }
+
+  viewChange(modo : String){
+    this.view = modo
+  }
+
+  Alteracao(opcao : String){
+    this.opcao = opcao
   }
 }

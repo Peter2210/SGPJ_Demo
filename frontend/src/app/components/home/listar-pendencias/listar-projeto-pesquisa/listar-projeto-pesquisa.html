@@ -1,8 +1,8 @@
-<div *ngIf="loading">Carregando projetos pendentes...</div>
+<div *ngIf="loading">Carregando cadastro de projetos pendentes...</div>
 
 <div *ngIf="!loading && projetosPendentes.length === 0">
     <h2>{{ titulo }}</h2>
-    <p>Nenhum item pendente de análise.</p>
+    <p>Nenhum item pendente de análise para cadastro.</p>
 </div>
 
 <div *ngIf="!loading && projetosPendentes.length > 0">

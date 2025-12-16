@@ -25,8 +25,12 @@ export const routes: Routes = [
        loadComponent: () => import('./components/home/docente/docente').then(m => m.Docente)
       },
       {
-       path: 'ComiteEtica',
-       loadComponent: () => import('./components/home/comite-etica/comite-etica').then(m => m.ComiteEtica)
+       path: 'ComiteEticaHumana',
+       loadComponent: () => import('./components/home/comite-etica-humana/comite-etica-humana').then(m => m.ComiteEticaHumana)
+      },
+      {
+       path: 'ComiteEticaAnimal',
+       loadComponent: () => import('./components/home/comite-etica-animal/comite-etica-animal').then(m => m.ComiteEticaAnimal)
       },
       {
        path: 'ComissaoExtensao',
@@ -118,8 +122,12 @@ export const routes: Routes = [
         ]
       },
       {
-        path: 'ComiteEtica/Pendencias',
-        redirectTo: `${EntidadePendencia.COMITE_ETICA}/Pendencias`
+        path: 'ComiteEticaHumana/Pendencias',
+        redirectTo: `${EntidadePendencia.COMITE_ETICA_HUMANA}/Pendencias`
+      },
+      {
+        path: 'ComiteEticaAnimal/Pendencias',
+        redirectTo: `${EntidadePendencia.COMITE_ETICA_ANIMAL}/Pendencias`
       },
       {
         path: 'ComissaoExtensao/Pendencias',

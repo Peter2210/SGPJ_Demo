@@ -1,0 +1,13 @@
+{
+  "body": {
+    "content": "",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "method": "GET",
+  "title": "chamar-grupo-pesquisa",
+  "url": "http://localhost:8081/gruposPesquisa"
+}
